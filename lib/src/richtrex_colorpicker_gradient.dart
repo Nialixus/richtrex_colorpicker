@@ -7,7 +7,7 @@ class ColorPickerGradient extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(left: 15.0),
+      margin: const EdgeInsets.symmetric(horizontal: 15.0),
       width: 30,
       decoration: BoxDecoration(
           gradient: LinearGradient(

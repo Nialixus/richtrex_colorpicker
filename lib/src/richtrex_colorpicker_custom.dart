@@ -8,12 +8,17 @@ class ColorPickerCustom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-          border: Border(bottom: BorderSide(width: 3, color: Colors.black))),
-      margin: const EdgeInsets.only(right: 15.0),
+      decoration: BoxDecoration(
+          color: Colors.black.withOpacity(0.05),
+          border:
+              const Border(bottom: BorderSide(width: 3, color: Colors.black))),
       height: 35,
       child: const TextField(
-        decoration: InputDecoration(isDense: true, labelText: "#012AAF"),
+        decoration: InputDecoration(
+            contentPadding: EdgeInsets.all(8.0),
+            isDense: true,
+            hintText: "#012AAF",
+            border: InputBorder.none),
       ),
     );
   }

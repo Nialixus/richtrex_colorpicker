@@ -38,6 +38,4 @@ List<Color> colors = [
   Colors.blueGrey,
   Colors.brown,
   Colors.grey,
-  Colors.black,
-  Colors.white,
 ];
