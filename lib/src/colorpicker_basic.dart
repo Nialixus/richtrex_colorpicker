@@ -1,6 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-export 'richtrex_colorpicker_colors.dart' hide colors;
+import 'colorpicker_state.dart';
+
+export 'colorpicker_basic.dart' hide ColorPickerBasic, colors;
+
+class ColorPickerBasic extends StatelessWidget {
+  const ColorPickerBasic({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      children: List.from(colors.map((color) => Material(
+            color: color,
+            child: InkWell(
+              onTap: () => context
+                  .read<ColorPickerState>()
+                  .setModel(color: color, opacity: 1, gradient: 0.5),
+              child: const SizedBox(
+                width: 30,
+                height: 30,
+              ),
+            ),
+          ))),
+    );
+  }
+}
 
 List<Color> colors = [
   Colors.pink,

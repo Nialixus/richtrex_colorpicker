@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 
-export 'richtrex_colorpicker_background.dart' hide ColorPickerBackground;
+export 'colorpicker_background.dart' hide ColorPickerBackground;
 
 class ColorPickerBackground extends CustomPainter {
   @override
