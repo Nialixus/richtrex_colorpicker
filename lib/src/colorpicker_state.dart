@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'colorpicker_model.dart';
 
 class ColorPickerState with ChangeNotifier {
-  ColorPickerState({required this.model});
+  ColorPickerState({required Color color})
+      : model = ColorPickerModel(
+            color: color, opacity: color.opacity, gradient: 0.5);
   ColorPickerModel model;
 
   void setModel({Color? color, double? opacity, double? gradient}) {

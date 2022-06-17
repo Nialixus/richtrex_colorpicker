@@ -5,35 +5,42 @@ void main() {
   runApp(const MaterialApp(title: "Color Picker Demo", home: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  /// Initial [Color] `0xFF1565C0`.
+  Color color = Colors.blue.shade800;
+
+  /// Update [color].
+  void setColor(Color color) => setState(() => this.color = color);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Align(
-          alignment: Alignment.center,
-          child: FloatingActionButton(
-            shape: const BeveledRectangleBorder(),
-            elevation: 0,
-            onPressed: () => RichTrexColorPicker.openDialog(context),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(
-                  Icons.colorize,
-                  size: 20.0,
-                ),
-                Text(
-                  "Dialog".toUpperCase(),
-                  style: const TextStyle(
-                      height: 1.75, fontSize: 8, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            backgroundColor: Colors.blue.shade800,
-          ),
-        ),
+            alignment: Alignment.center,
+            child: FloatingActionButton(
+                elevation: 0,
+                shape: const BeveledRectangleBorder(),
+                backgroundColor: color,
+                onPressed: () async => setColor(
+                    await RichTrexColorPicker.openDialog(context,
+                        color: color)),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.colorize, size: 20.0),
+                      Text("Dialog".toUpperCase(),
+                          style: const TextStyle(
+                              height: 1.75,
+                              fontSize: 8,
+                              fontWeight: FontWeight.bold))
+                    ]))),
         bottomSheet: DecoratedBox(
             decoration: const BoxDecoration(boxShadow: [
               BoxShadow(color: Colors.black12, blurRadius: 10.0)
@@ -41,22 +48,23 @@ class MyApp extends StatelessWidget {
             child: Material(
                 color: Colors.white,
                 child: InkWell(
-                    onTap: () => RichTrexColorPicker.openBottomSheet(context),
+                    onTap: () async => setColor(
+                        await RichTrexColorPicker.openBottomSheet(context,
+                            color: color)),
                     child: SizedBox(
                         height: kToolbarHeight,
                         child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
-                              Icon(Icons.colorize,
-                                  size: 20.0, color: Colors.blue.shade800),
+                              Icon(Icons.colorize, size: 20.0, color: color),
                               Text("Sheet".toUpperCase(),
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       height: 1.75,
                                       fontSize: 10,
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.blue.shade800))
+                                      color: color))
                             ]))))));
   }
 }
