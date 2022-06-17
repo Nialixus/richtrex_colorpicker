@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 import 'colorpicker_state.dart';
 
@@ -15,7 +15,7 @@ class ColorPickerBasic extends StatelessWidget {
             child: InkWell(
               onTap: () => context
                   .read<ColorPickerState>()
-                  .setModel(color: color, opacity: 1, gradient: 0.5),
+                  .setModel(color: color, opacity: 1.0, gradient: 0.5),
               child: const SizedBox(
                 width: 30,
                 height: 30,

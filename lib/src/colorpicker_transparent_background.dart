@@ -5,19 +5,19 @@ class TransparentBackground extends CustomPainter {
   final Size size;
 
   @override
-  void paint(Canvas canvas, Size oldSize) {
+  void paint(Canvas canvas, Size size) {
     Path path(int x, int y) => Path()
-      ..moveTo(size.width * x, size.height * y)
-      ..lineTo(size.width * (x + 1), size.height * y)
-      ..lineTo(size.width * (x + 1), size.height * (y + 1))
-      ..lineTo(size.width * x, size.height * (y + 1))
+      ..moveTo(this.size.width * x, this.size.height * y)
+      ..lineTo(this.size.width * (x + 1), this.size.height * y)
+      ..lineTo(this.size.width * (x + 1), this.size.height * (y + 1))
+      ..lineTo(this.size.width * x, this.size.height * (y + 1))
       ..close();
 
     for (int vertical = 0;
-        vertical < oldSize.height / size.height;
+        vertical < size.height / this.size.height;
         vertical++) {
       for (int horizontal = 0;
-          horizontal < oldSize.width / size.width;
+          horizontal < size.width / this.size.width;
           horizontal++) {
         canvas.drawPath(
             path(horizontal, vertical),

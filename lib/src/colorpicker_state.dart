@@ -1,20 +1,16 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'colorpicker_model.dart';
 
-class ColorPickerState extends Cubit<ColorPickerModel> {
-  ColorPickerState({required this.model}) : super(model);
-  final ColorPickerModel model;
+class ColorPickerState with ChangeNotifier {
+  ColorPickerState({required this.model});
+  ColorPickerModel model;
 
   void setModel({Color? color, double? opacity, double? gradient}) {
-    ColorPickerModel newModel = model.copyWith(
+    model = ColorPickerModel(
         color: color ?? model.color,
         opacity: opacity ?? model.opacity,
         gradient: gradient ?? model.gradient);
 
-    emit(newModel);
+    notifyListeners();
   }
 }

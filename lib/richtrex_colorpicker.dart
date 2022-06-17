@@ -1,7 +1,7 @@
 library richtrex_colorpicker;
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:richtrex_colorpicker/src/colorpicker_model.dart';
 import 'src/colorpicker_basic.dart';
 import 'src/colorpicker_custom.dart';
@@ -13,7 +13,7 @@ import 'src/colorpicker_state.dart';
 class RichTrexColorPicker extends StatelessWidget {
   const RichTrexColorPicker(
       {Key? key,
-      this.color = Colors.black,
+      this.color = Colors.pink,
       this.painter,
       this.scrollThickness = 6.0,
       this.colorBox = const Size(30, 30),
@@ -42,9 +42,9 @@ class RichTrexColorPicker extends StatelessWidget {
         padding?.add(EdgeInsets.only(bottom: bottom)) ??
             EdgeInsets.fromLTRB(15, 15, 15, 15 + bottom);
 
-    return BlocProvider(
+    return ChangeNotifierProvider<ColorPickerState>(
         create: (_) => ColorPickerState(
-            model: ColorPickerModel(color: color, opacity: 1.0, gradient: 0.5)),
+            model: ColorPickerModel(color: color, opacity: 1, gradient: 0.5)),
         child: CustomPaint(
             painter: painter,
             child: Padding(
@@ -56,33 +56,35 @@ class RichTrexColorPicker extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                        // Basic ColorPicker
+                        // Basic Color Picker
                         ColoredBox(
-                          color: Colors.black12,
-                          child: RawScrollbar(
-                              interactive: false,
-                              isAlwaysShown: true,
-                              thumbColor: Colors.black,
-                              thickness: scrollThickness,
-                              child: SingleChildScrollView(
-                                  padding:
-                                      EdgeInsets.only(right: scrollThickness),
-                                  child: ConstrainedBox(
-                                    child: const ColorPickerBasic(),
-                                    constraints: BoxConstraints(
-                                        maxWidth: colorBox.width * 5),
-                                  ))),
-                        ),
+                            color: Colors.black12,
+                            child: RawScrollbar(
+                                interactive: false,
+                                isAlwaysShown: true,
+                                thumbColor: Colors.black,
+                                thickness: scrollThickness,
+                                child: SingleChildScrollView(
+                                    padding:
+                                        EdgeInsets.only(right: scrollThickness),
+                                    child: ConstrainedBox(
+                                        child: const ColorPickerBasic(),
+                                        constraints: BoxConstraints(
+                                            maxWidth: colorBox.width * 5))))),
 
+                        // Opacity Color Picker
                         Padding(
-                          padding:
-                              EdgeInsets.only(left: newPadding.horizontal / 2),
-                          child: const ColorPickerOpacity(),
-                        )
+                            padding: EdgeInsets.only(
+                                left: newPadding.horizontal / 2),
+                            child: const ColorPickerOpacity()),
                       ])),
+
+                  // Gradient Color Picker
                   const Padding(
                       padding: EdgeInsets.symmetric(vertical: 15.0),
                       child: ColorPickerGradient()),
+
+                  // Text Color Picker
                   const ColorPickerCustom()
                 ])))));
   }
@@ -94,47 +96,41 @@ class RichTrexColorPicker extends StatelessWidget {
           double scrollThickness = 6.0,
           Size colorBox = const Size(30, 30)}) =>
       showModalBottomSheet(
-        context: context,
-        barrierColor: Colors.transparent,
-        backgroundColor: Colors.transparent,
-        isScrollControlled: true,
-        builder: (_) => WillPopScope(
-          onWillPop: () async {
-            return true;
-          },
-          child: Padding(
-            padding: EdgeInsets.only(
-              bottom: MediaQuery.of(context).viewInsets.bottom,
-            ),
-            child: GestureDetector(
-              onTap: () => Navigator.pop(_),
-              child: Container(
-                color: Colors.transparent,
-                alignment: Alignment.bottomCenter,
-                padding:
-                    margin ?? const EdgeInsets.only(bottom: kToolbarHeight),
-                child: GestureDetector(
-                    onTap: () {
-                      // do nothing
-                    },
-                    child: ConstrainedBox(
-                        constraints: BoxConstraints(
-                            maxWidth: (colorBox.width * 8) +
-                                (padding != null
-                                    ? padding.horizontal * 1.5
-                                    : 15 * 3) +
-                                scrollThickness,
-                            maxHeight: (colorBox.height * 7) +
-                                (padding != null
-                                    ? padding.vertical * 2
-                                    : 15 * 4)),
-                        child: RichTrexColorPicker(
-                            painter: ColorPickerBackground()))),
-              ),
-            ),
-          ),
-        ),
-      );
+          context: context,
+          barrierColor: Colors.transparent,
+          backgroundColor: Colors.transparent,
+          isScrollControlled: true,
+          builder: (_) => WillPopScope(
+              onWillPop: () async {
+                return true;
+              },
+              child: Padding(
+                  padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).viewInsets.bottom),
+                  child: GestureDetector(
+                      onTap: () => Navigator.pop(_),
+                      child: Container(
+                          color: Colors.transparent,
+                          alignment: Alignment.bottomCenter,
+                          padding: margin ??
+                              const EdgeInsets.only(bottom: kToolbarHeight),
+                          child: GestureDetector(
+                              onTap: () {
+                                // do nothing
+                              },
+                              child: ConstrainedBox(
+                                  constraints: BoxConstraints(
+                                      maxWidth: (colorBox.width * 8) +
+                                          (padding != null
+                                              ? padding.horizontal * 1.5
+                                              : 15 * 3) +
+                                          scrollThickness,
+                                      maxHeight: (colorBox.height * 7) +
+                                          (padding != null
+                                              ? padding.vertical * 2
+                                              : 15 * 4)),
+                                  child: RichTrexColorPicker(
+                                      painter: ColorPickerBackground()))))))));
 
   /// Open [RichTrexColorPicker] as Dialog.
   static Future openDialog(BuildContext context,
@@ -144,20 +140,23 @@ class RichTrexColorPicker extends StatelessWidget {
           Size colorBox = const Size(30, 30)}) =>
       showDialog(
           context: context,
-          builder: (_) => Center(
-                child: Material(
-                  color: Colors.white,
-                  child: Container(
-                    constraints: BoxConstraints(
-                        maxWidth: (colorBox.width * 7) +
-                            (padding?.horizontal ?? 15 * 2) +
-                            scrollThickness,
-                        maxHeight: (colorBox.height * 7) +
-                            (padding != null ? padding.vertical * 2 : 15 * 4)),
-                    child: const RichTrexColorPicker(),
-                    color: Colors.transparent,
-                    alignment: Alignment.center,
-                  ),
-                ),
+          builder: (_) => Padding(
+                padding:
+                    EdgeInsets.only(bottom: MediaQuery.of(_).viewInsets.bottom),
+                child: Center(
+                    child: Material(
+                        color: Colors.white,
+                        child: Container(
+                            constraints: BoxConstraints(
+                                maxWidth: (colorBox.width * 7) +
+                                    (padding?.horizontal ?? 15 * 2) +
+                                    scrollThickness,
+                                maxHeight: (colorBox.height * 7) +
+                                    (padding != null
+                                        ? padding.vertical * 2
+                                        : 15 * 4)),
+                            child: const RichTrexColorPicker(),
+                            color: Colors.transparent,
+                            alignment: Alignment.center))),
               ));
 }

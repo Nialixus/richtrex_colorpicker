@@ -4,23 +4,18 @@ class ColorPickerModel {
   final Color color;
   final double opacity;
   final double gradient;
+  final Color output;
 
   ColorPickerModel(
-      {required this.color, required this.opacity, required this.gradient});
+      {required this.color, required this.opacity, required this.gradient})
+      : output = (gradient < 0.5
+                ? Color.lerp(Colors.black, color, gradient * 2)!
+                : gradient > 0.5
+                    ? Color.lerp(color, Colors.white, (gradient - 0.5) * 2)!
+                    : color)
+            .withOpacity(opacity);
 
   @override
   String toString() =>
       "ColorPickerModel(color: $color, opacity: $opacity, gradient: $gradient)";
-
-  ColorPickerModel copyWith({
-    Color? color,
-    double? opacity,
-    double? gradient,
-  }) {
-    return ColorPickerModel(
-      color: color ?? this.color,
-      opacity: opacity ?? this.opacity,
-      gradient: gradient ?? this.gradient,
-    );
-  }
 }
