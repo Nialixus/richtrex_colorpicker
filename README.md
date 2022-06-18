@@ -21,7 +21,7 @@ Add this line to your pubspec.yaml.
 
 ```yaml
 dependencies:
-  richtrex_colorpicker: ^1.0.0
+  richtrex_colorpicker: ^1.1.0
 ```
 
 ## Usage

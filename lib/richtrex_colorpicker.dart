@@ -91,7 +91,6 @@ class RichTrexColorPicker extends StatelessWidget {
                         color: Colors.black12,
                         child: RawScrollbar(
                             interactive: false,
-                            isAlwaysShown: true,
                             thumbColor: Colors.black,
                             thickness: scrollThickness,
                             child: SingleChildScrollView(

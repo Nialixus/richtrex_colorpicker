@@ -1,6 +1,6 @@
 name: richtrex_colorpicker
-description: An extended package used in richtrex package to pick color.
-version: 1.0.0
+description: An extended package used in richtrex package to pick color whether as dialog, bottom sheet, or just widget in tree.
+version: 1.1.0
 homepage: https://github.com/Nialixus/richtrex_colorpicker
 
 environment:
