@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 
-import '../richtrex_colorpicker.dart';
+import '../../richtrex_colorpicker.dart';
 
 export 'colorpicker_background.dart' hide ColorPickerBackground;
 

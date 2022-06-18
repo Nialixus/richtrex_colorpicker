@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../richtrex_colorpicker.dart';
+import '../../richtrex_colorpicker.dart';
 
 export 'colorpicker_model.dart' hide ColorPickerModel;
 

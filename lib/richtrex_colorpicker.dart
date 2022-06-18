@@ -4,12 +4,12 @@ library richtrex_colorpicker;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'src/colorpicker_state.dart';
-import 'src/colorpicker_basic.dart';
-import 'src/colorpicker_custom.dart';
-import 'src/colorpicker_opacity.dart';
-import 'src/colorpicker_gradient.dart';
-import 'src/colorpicker_background.dart';
+import 'src/state/colorpicker_state.dart';
+import 'src/widget/colorpicker_basic.dart';
+import 'src/widget/colorpicker_custom.dart';
+import 'src/widget/colorpicker_opacity.dart';
+import 'src/widget/colorpicker_gradient.dart';
+import 'src/paint/colorpicker_background.dart';
 
 /// Extended package of `RichTrex` to pick [Color].
 class RichTrexColorPicker extends StatelessWidget {

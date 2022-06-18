@@ -4,4 +4,4 @@
 
 ## 1.1.0
 
-- Remove deprecated scrollbar parameter.
+- Remove deprecated scrollbar parameter and restructuring code.

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'colorpicker_state.dart';
-import '../richtrex_colorpicker.dart';
+import '../state/colorpicker_state.dart';
+import '../../richtrex_colorpicker.dart';
 
 export 'colorpicker_basic.dart' hide ColorPickerBasic, colors;
 

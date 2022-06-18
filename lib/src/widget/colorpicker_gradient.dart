@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'colorpicker_state.dart';
-import 'colorpicker_slider.dart';
-import '../richtrex_colorpicker.dart';
+import '../state/colorpicker_state.dart';
+import '../../richtrex_colorpicker.dart';
+import '../paint/colorpicker_slider.dart';
 
 export 'colorpicker_gradient.dart' hide ColorPickerGradient;
 

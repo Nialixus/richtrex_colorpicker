@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'colorpicker_opacity.dart';
-import 'colorpicker_gradient.dart';
+import '../widget/colorpicker_opacity.dart';
+import '../widget/colorpicker_gradient.dart';
 
 export 'colorpicker_slider.dart' hide ColorPickerSlider;
 

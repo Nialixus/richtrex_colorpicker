@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'colorpicker_state.dart';
-import 'colorpicker_slider.dart';
-import '../richtrex_colorpicker.dart';
-import 'colorpicker_transparent_background.dart';
+import '../state/colorpicker_state.dart';
+import '../../richtrex_colorpicker.dart';
+import '../paint/colorpicker_slider.dart';
+import '../paint/colorpicker_transparent_background.dart';
 
 export 'colorpicker_opacity.dart' hide ColorPickerOpacity;
 
