@@ -1,39 +1,65 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# RichTrex: Color Picker
+<a href='https://pub.dev/packages/richtrex_colorpicker'><img src='https://img.shields.io/pub/v/richtrex_colorpicker.svg?logo=flutter&color=blue&style=flat-square'/></a></br>
+An extended package used in `RichTrex` package to pick color.
+## Preview
+<table>
+  <tr>
+    <td><img src="https://user-images.githubusercontent.com/45191605/174426454-7d39c384-013d-4c26-8f0f-8aefc5f82a87.gif"/></td>
+    <td><img src="https://user-images.githubusercontent.com/45191605/174426475-c9feac54-00b1-47e1-8b9f-165688ae7e46.gif"/></td>
+    <td><img src="https://user-images.githubusercontent.com/45191605/174426478-7a46bc7e-1ddc-4421-9efc-dc686c0b462e.gif"/></td>
+  </tr>
+  <tr align="center">
+    <td>Dialog</td>
+    <td>Bottom sheet</td>
+    <td>Widget</td>
+  </tr>
+</table>
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
+## Install
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
+Add this line to your pubspec.yaml.
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
-
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+```yaml
+dependencies:
+  richtrex_colorpicker: ^1.0.0
+```
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+First, import the package.
 
 ```dart
-const like = 'sample';
+import 'package:richtrex_colorpicker/richtrex_colorpicker.dart';
 ```
 
-## Additional information
+And then put the widget like this.
+```dart
+RichTrexColorPicker(
+  color: Colors.blue,
+  onChanged: (color) => print(color),
+);
+```
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+Or if you want to open it as `Dialog`, do this.
+```dart
+GestureDetector(
+  onTap: () async {
+    var color = await RichTrexColorPicker.openDialog(context, color: Colors.blue);
+    print(color);
+  }
+);
+```
+
+And if you want to open it as `Bottom Sheet`, try this.
+```dart
+GestureDetector(
+  onTap: () async {
+    var color = await RichTrexColorPicker.openBottomSheet(context, color: Colors.blue);
+    print(color);
+  }
+);
+```
+
+## Sample
+- [richtrex_colorpicker/main/example/lib/main.dart](https://github.com/Nialixus/richtrex_colorpicker/blob/main/example/lib/main.dart)
+- [richtrex_colorpicker/releases/tag/v1.0.0.apk](https://github.com/Nialixus/richtrex_colorpicker/releases/tag/v1.0.0)
