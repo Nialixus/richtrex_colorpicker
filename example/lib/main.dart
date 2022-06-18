@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:richtrex_colorpicker/richtrex_colorpicker.dart';
 
