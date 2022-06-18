@@ -1,8 +1,11 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 
+import '../richtrex_colorpicker.dart';
+
 export 'colorpicker_background.dart' hide ColorPickerBackground;
 
+/// Baloon background used in [RichTrexColorPicker] as bottom sheet.
 class ColorPickerBackground extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {

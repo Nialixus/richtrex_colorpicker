@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 
+export 'colorpicker_transparent_background.dart' hide TransparentBackground;
+
+/// Squares background below transparent color.
 class TransparentBackground extends CustomPainter {
+  /// Display background below transparent color.
   TransparentBackground({this.size = const Size(20, 20)});
+
+  /// Size each square in [TransparentBackground], by default is `20 x 20`.
   final Size size;
 
   @override

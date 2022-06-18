@@ -3,11 +3,14 @@ import 'package:provider/provider.dart';
 
 import 'colorpicker_state.dart';
 import 'colorpicker_slider.dart';
+import '../richtrex_colorpicker.dart';
 import 'colorpicker_transparent_background.dart';
 
 export 'colorpicker_opacity.dart' hide ColorPickerOpacity;
 
+/// Pick color opacity in [RichTrexColorPicker].
 class ColorPickerOpacity extends StatelessWidget {
+  /// Widget to set color opacity.
   const ColorPickerOpacity({Key? key}) : super(key: key);
 
   @override

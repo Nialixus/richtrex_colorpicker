@@ -1,43 +1,68 @@
+/// Library of `RichTrex` extended package `ColorPicker`
 library richtrex_colorpicker;
-
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'src/colorpicker_state.dart';
 import 'src/colorpicker_basic.dart';
 import 'src/colorpicker_custom.dart';
+import 'src/colorpicker_opacity.dart';
 import 'src/colorpicker_gradient.dart';
 import 'src/colorpicker_background.dart';
-import 'src/colorpicker_opacity.dart';
-import 'src/colorpicker_state.dart';
 
+/// Extended package of `RichTrex` to pick [Color].
 class RichTrexColorPicker extends StatelessWidget {
+  /// Initial color.
   final Color color;
-  final CustomPainter? painter;
+
+  /// [Scrollbar] thickness, by default is `6.0`.
   final double scrollThickness;
+
+  /// Size of each color box, by default is `30 x 30`.
   final Size colorBox;
+
+  /// Space range between one picker to another.
   final EdgeInsetsGeometry? padding;
 
-  const RichTrexColorPicker(
-      {Key? key,
-      required this.color,
-      this.painter,
-      this.scrollThickness = 6.0,
-      this.colorBox = const Size(30, 30),
-      this.padding})
-      : super(key: key);
+  /// Color output when user interact with [RichTrexColorPicker].
+  final void Function(Color color)? onChanged;
+
+  /// Display [RichTrexColorPicker] as widget in tree.
+  const RichTrexColorPicker({
+    Key? key,
+    this.padding,
+    this.onChanged,
+    required this.color,
+    this.scrollThickness = 6.0,
+    this.colorBox = const Size(30, 30),
+  }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => ChangeNotifierProvider(
-        create: (_) => ColorPickerState(color: color),
-        child: _build(
-            color: color,
-            colorBox: colorBox,
-            padding: padding,
-            painter: painter,
-            scrollThickness: scrollThickness),
-      );
+  Widget build(BuildContext context) {
+    return ConstrainedBox(
+        constraints: BoxConstraints(
+            maxWidth: (colorBox.width * 7) +
+                (padding?.horizontal ?? 15 * 2) +
+                scrollThickness,
+            maxHeight: (colorBox.height * 7) +
+                (padding != null ? padding!.vertical * 2 : 15 * 4)),
+        child: ChangeNotifierProvider(
+            create: (_) => ColorPickerState(color: color),
+            builder: (state, child) {
+              onChanged!(
+                  state.select((ColorPickerState state) => state.model.output));
+              return child!;
+            },
+            child: _build(
+                color: color,
+                colorBox: colorBox,
+                padding: padding,
+                painter: null,
+                scrollThickness: scrollThickness)));
+  }
 
+  /// UI core of [RichTrexColorPicker].
   static Widget _build(
       {required Color color,
       CustomPainter? painter,
@@ -79,15 +104,16 @@ class RichTrexColorPicker extends StatelessWidget {
 
                     // Opacity Color Picker
                     Padding(
+                        child: const ColorPickerOpacity(),
                         padding:
-                            EdgeInsets.only(left: newPadding.horizontal / 2),
-                        child: const ColorPickerOpacity()),
+                            EdgeInsets.only(left: newPadding.horizontal / 2)),
                   ])),
 
               // Gradient Color Picker
-              const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 15.0),
-                  child: ColorPickerGradient()),
+              Padding(
+                  child: const ColorPickerGradient(),
+                  padding:
+                      EdgeInsets.symmetric(vertical: newPadding.vertical / 2)),
 
               // Text Color Picker
               const ColorPickerCustom()

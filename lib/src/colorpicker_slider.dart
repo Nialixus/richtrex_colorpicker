@@ -1,15 +1,31 @@
 import 'package:flutter/material.dart';
 
+import 'colorpicker_opacity.dart';
+import 'colorpicker_gradient.dart';
+
+export 'colorpicker_slider.dart' hide ColorPickerSlider;
+
+/// Custom slider to set [ColorPickerOpacity] or [ColorPickerGradient] value.
 class ColorPickerSlider extends CustomPainter {
+  /// Default slider of [ColorPickerOpacity] and [ColorPickerGradient].
   ColorPickerSlider(
       {required this.offset,
       this.thickness = 10.0,
       this.scrollDirection = Axis.vertical,
       this.color = Colors.black});
+
+  /// Slider's thickness, by default is `10.0`.
   final double thickness;
+
+  /// Slider's position.
   final Offset offset;
+
+  /// Slider's direction, by default is [Axis.vertical].
   final Axis scrollDirection;
+
+  /// Slider's color, by default is [Colors.black].
   final Color color;
+
   @override
   void paint(Canvas canvas, Size size) {
     Paint background = Paint()

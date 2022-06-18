@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:richtrex_colorpicker/richtrex_colorpicker.dart';
 
@@ -22,25 +24,36 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Align(
-            alignment: Alignment.center,
-            child: FloatingActionButton(
-                elevation: 0,
-                shape: const BeveledRectangleBorder(),
-                backgroundColor: color,
-                onPressed: () async => setColor(
-                    await RichTrexColorPicker.openDialog(context,
-                        color: color)),
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(Icons.colorize, size: 20.0),
-                      Text("Dialog".toUpperCase(),
-                          style: const TextStyle(
-                              height: 1.75,
-                              fontSize: 8,
-                              fontWeight: FontWeight.bold))
-                    ]))),
+        body: PageView(children: [
+          // Dialog sample.
+          Center(
+              child: FloatingActionButton(
+                  elevation: 0,
+                  shape: const BeveledRectangleBorder(),
+                  backgroundColor: color,
+                  onPressed: () =>
+                      RichTrexColorPicker.openDialog(context, color: color)
+                          .then((value) => setColor(value)),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.colorize, size: 20.0),
+                        Text("Dialog".toUpperCase(),
+                            style: const TextStyle(
+                                height: 1.75,
+                                fontSize: 8,
+                                fontWeight: FontWeight.bold))
+                      ]))),
+
+          // Widget in tree sample.
+          Center(
+              child: RichTrexColorPicker(
+                  color: color,
+                  onChanged: (color) =>
+                      Future.value(color).then((value) => setColor(value))))
+        ]),
+
+        // Bottom sheet sample.
         bottomSheet: DecoratedBox(
             decoration: const BoxDecoration(boxShadow: [
               BoxShadow(color: Colors.black12, blurRadius: 10.0)
@@ -48,9 +61,9 @@ class _MyAppState extends State<MyApp> {
             child: Material(
                 color: Colors.white,
                 child: InkWell(
-                    onTap: () async => setColor(
-                        await RichTrexColorPicker.openBottomSheet(context,
-                            color: color)),
+                    onTap: () => RichTrexColorPicker.openBottomSheet(context,
+                            color: color)
+                        .then((value) => setColor(value)),
                     child: SizedBox(
                         height: kToolbarHeight,
                         child: Column(
